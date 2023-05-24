@@ -15,10 +15,10 @@ from PIL import ImageFont
 font = ImageFont.truetype('SimHei.ttf', 32)
 
 # 载入类别
-idx_to_labels = np.load(r"D:\多标签动物特征识别\npy文件\idx_to_labels.npy", allow_pickle=True).item()
+idx_to_labels = np.load(r"npy.Path", allow_pickle=True).item()
 
 # 导入训练好的模型
-model = torch.load(r"C:\Users\26028\.cache\torch\hub\checkpoints\AnimalCheck-8.pth")
+model = torch.load(r"Your model Path")
 model = model.eval().to(device)
 
 # 预处理
@@ -34,7 +34,7 @@ test_transform = transforms.Compose([transforms.Resize(256),
 
 # 载入一张测试图像
 from PIL import Image,ImageDraw
-img_path = r"C:\Users\26028\Desktop\测试图片\train\fd2b02b4c614454a.jpg"
+img_path = r"Your image Path"
 img_pil = Image.open(img_path)
 
 # 预处理
