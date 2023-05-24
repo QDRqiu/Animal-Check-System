@@ -63,18 +63,18 @@ test_transforms = transforms.Compose([transforms.Resize(256),
                                          std=[0.229, 0.224, 0.225])# 均值，标准差
                                     ])
 # 处理训练集
-train_data = MyDataset(img_dir = 'D:\\多标签动物特征识别\\data\\train\\train-1',
-                       label_file = 'D:\\多标签动物特征识别\\data\\train\\train-labels.txt',
+train_data = MyDataset(img_dir = 'train.path',
+                       label_file = 'train-labels.path',
                        transform = train_transforms)
 
 # 处理测试集
-test_data = MyDataset(img_dir = 'D:\\多标签动物特征识别\\data\\test\\test-1',
-                       label_file = 'D:\\多标签动物特征识别\\data\\test\\test-labels.txt',
+test_data = MyDataset(img_dir = 'test.path',
+                       label_file = 'test-labels.path',
                        transform = test_transforms)
 
 # 数据加载器
 from torch.utils.data import DataLoader
-BATCH_SIZE = 32                                  # GPU为 GTX 1650Ti,跑不了太高
+BATCH_SIZE = 32                                  # 根据设备，自己定义
 
 # 训练集的数据加载器
 train_loader = DataLoader(train_data,
@@ -104,8 +104,8 @@ print(train_data.class_to_idx)
 idx_to_labels = {y:x for x,y in train_data.class_to_idx.items()}
 
 # 保存为本地的 npy 文件----方便读取数据，更快响应
-np.save('D:\\多标签动物特征识别\\npy文件\\idx_to_labels.npy', idx_to_labels)            # 保存 索引号 到 类别
-np.save('D:\\多标签动物特征识别\\npy文件\\labels_to_idx.npy', train_data.class_to_idx)  # 保存 类别 到 索引号
+np.save('idx_to_labels.npy', idx_to_labels)            # 保存 索引号 到 类别
+np.save('labels_to_idx.npy', train_data.class_to_idx)  # 保存 类别 到 索引号
 
 # 导入迁移学习模型
 from torchvision import models
@@ -187,4 +187,4 @@ with torch.no_grad():
     lr_scheduler.step()
 
 # 保存模型
-torch.save(model, "C:\\Users\\26028\\.cache\\torch\\hub\\checkpoints/AnimalCheck-9.pth")
+torch.save(model, "model.path")
